@@ -1,438 +1,86 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINES - 1Win</title>
+    <title>Mines Game</title>
     <style>
-        :root {
-            --primary-color: #00a2ff;
-            --secondary-color: #003b71;
-            --accent-color: #ffcc00;
-            --background-dark: #0a1a2e;
-            --background-light: #1a2e4f;
-            --text-color: #ffffff;
-            --danger-color: #ff3d3d;
-            --success-color: #00c853;
-        }
-        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: var(--background-dark);
-            color: var(--text-color);
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-        }
-        
-        .header {
-            background-color: var(--secondary-color);
-            width: 100%;
-            padding: 15px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        .logo {
-            height: 40px;
+            height: 100vh;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
         }
         
         .game-container {
-            max-width: 600px;
-            width: 100%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: var(--background-light);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .game-title {
-            text-align: center;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-        
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .cell {
-            aspect-ratio: 1;
-            background-color: var(--primary-color);
-            border-radius: 5px;
+            width: 300px;
+            height: 400px;
+            background-color: #2a2a2a;
+            border-radius: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .traps-count {
+            color: white;
             font-size: 24px;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-        
-        .cell:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(0, 162, 255, 0.5);
-        }
-        
-        .cell.revealed {
-            background-color: var(--success-color);
-        }
-        
-        .cell.mine {
-            background-color: var(--danger-color);
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        
-        .bet-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .bet-amount {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            font-size: 16px;
-            width: 100px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #0088cc;
-        }
-        
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: #333;
-        }
-        
-        .btn-accent:hover {
-            background-color: #e6b800;
-        }
-        
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background-color: #cc3232;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-between;
             margin-top: 20px;
-            padding: 15px;
-            background-color: var(--secondary-color);
-            border-radius: 5px;
         }
         
-        .stat-item {
-            text-align: center;
+        .traps-label {
+            color: #888;
+            font-size: 14px;
+            margin-top: 5px;
         }
         
-        .stat-value {
-            font-size: 24px;
+        .play-button {
+            width: 100%;
+            height: 50px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
             font-weight: bold;
-            color: var(--accent-color);
-        }
-        
-        .mine-selector {
-            display: flex;
-            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
             margin-bottom: 20px;
         }
         
-        .mine-option {
-            padding: 10px 15px;
-            background-color: var(--secondary-color);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .play-button:hover {
+            background-color: #45a049;
         }
         
-        .mine-option.selected {
-            background-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 162, 255, 0.5);
+        .mines-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
         }
         
-        .mine-option:hover {
-            transform: scale(1.05);
-        }
-        
-        .game-message {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 18px;
-            min-height: 27px;
-        }
-        
-        .win-message {
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        
-        .lose-message {
-            color: var(--danger-color);
-            font-weight: bold;
+        .mine-icon {
+            font-size: 40px;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://1win.la/wp-content/uploads/2023/09/1win-logo.svg" alt="1Win" class="logo">
-    </div>
-    
     <div class="game-container">
-        <h1 class="game-title">MINES</h1>
-        
-        <div class="mine-selector">
-            <div class="mine-option" data-mines="3">3 мины</div>
-            <div class="mine-option" data-mines="5">5 мин</div>
-            <div class="mine-option selected" data-mines="10">10 мин</div>
-            <div class="mine-option" data-mines="15">15 мин</div>
-            <div class="mine-option" data-mines="20">20 мин</div>
+        <div class="mines-display">
+            <div class="traps-count">3</div>
+            <div class="traps-label">traps</div>
         </div>
         
-        <div class="controls">
-            <div class="bet-controls">
-                <input type="number" class="bet-amount" value="100" min="10" step="10">
-                <button class="btn btn-primary" id="cashout-btn">Забрать</button>
-            </div>
-            <button class="btn btn-accent" id="start-btn">Начать игру</button>
-        </div>
-        
-        <div class="game-message" id="game-message"></div>
-        
-        <div class="game-board" id="game-board">
-            <!-- Ячейки будут добавлены через JavaScript -->
-        </div>
-        
-        <div class="stats">
-            <div class="stat-item">
-                <div>Ставка</div>
-                <div class="stat-value" id="current-bet">100</div>
-            </div>
-            <div class="stat-item">
-                <div>Выигрыш</div>
-                <div class="stat-value" id="current-win">0</div>
-            </div>
-            <div class="stat-item">
-                <div>Множитель</div>
-                <div class="stat-value" id="current-multiplier">1.00x</div>
-            </div>
-        </div>
+        <button class="play-button">Play</button>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Константы игры
-            const BOARD_SIZE = 25;
-            const MULTIPLIER_BASE = 1.05;
-            
-            // Элементы DOM
-            const gameBoard = document.getElementById('game-board');
-            const startBtn = document.getElementById('start-btn');
-            const cashoutBtn = document.getElementById('cashout-btn');
-            const betAmountInput = document.querySelector('.bet-amount');
-            const currentBetDisplay = document.getElementById('current-bet');
-            const currentWinDisplay = document.getElementById('current-win');
-            const currentMultiplierDisplay = document.getElementById('current-multiplier');
-            const gameMessage = document.getElementById('game-message');
-            const mineOptions = document.querySelectorAll('.mine-option');
-            
-            // Переменные игры
-            let gameState = 'idle'; // 'idle', 'playing', 'ended'
-            let betAmount = 100;
-            let currentWin = 0;
-            let currentMultiplier = 1;
-            let revealedCells = 0;
-            let totalMines = 10;
-            let board = [];
-            let minesPositions = [];
-            
-            // Инициализация игрового поля
-            function initializeBoard() {
-                gameBoard.innerHTML = '';
-                board = [];
-                minesPositions = [];
-                revealedCells = 0;
-                
-                // Создаем ячейки
-                for (let i = 0; i < BOARD_SIZE; i++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cell.dataset.index = i;
-                    cell.addEventListener('click', () => handleCellClick(i));
-                    gameBoard.appendChild(cell);
-                    board.push({ isMine: false, revealed: false });
-                }
-            }
-            
-            // Размещение мин
-            function placeMines() {
-                minesPositions = [];
-                let minesPlaced = 0;
-                
-                while (minesPlaced < totalMines) {
-                    const randomPos = Math.floor(Math.random() * BOARD_SIZE);
-                    
-                    if (!board[randomPos].isMine) {
-                        board[randomPos].isMine = true;
-                        minesPositions.push(randomPos);
-                        minesPlaced++;
-                    }
-                }
-            }
-            
-            // Начало игры
-            function startGame() {
-                if (gameState !== 'idle') return;
-                
-                betAmount = parseInt(betAmountInput.value);
-                if (isNaN(betAmount) || betAmount < 10) {
-                    alert('Минимальная ставка - 10');
-                    return;
-                }
-                
-                currentBetDisplay.textContent = betAmount;
-                currentWin = 0;
-                currentWinDisplay.textContent = currentWin;
-                currentMultiplier = 1;
-                currentMultiplierDisplay.textContent = currentMultiplier.toFixed(2) + 'x';
-                
-                initializeBoard();
-                placeMines();
-                
-                gameState = 'playing';
-                startBtn.disabled = true;
-                cashoutBtn.disabled = false;
-                betAmountInput.disabled = true;
-                
-                gameMessage.textContent = 'Выберите ячейку';
-                gameMessage.className = 'game-message';
-            }
-            
-            // Обработка клика по ячейке
-            function handleCellClick(index) {
-                if (gameState !== 'playing' || board[index].revealed) return;
-                
-                const cell = gameBoard.children[index];
-                board[index].revealed = true;
-                revealedCells++;
-                
-                if (board[index].isMine) {
-                    // Игрок нашел мину
-                    cell.textContent = '💣';
-                    cell.classList.add('mine');
-                    endGame(false);
-                } else {
-                    // Безопасная ячейка
-                    cell.classList.add('revealed');
-                    updateMultiplier();
-                    
-                    // Проверка на победу (все безопасные ячейки открыты)
-                    if (revealedCells === BOARD_SIZE - totalMines) {
-                        endGame(true);
-                    }
-                }
-            }
-            
-            // Обновление множителя
-            function updateMultiplier() {
-                currentMultiplier *= MULTIPLIER_BASE;
-                currentMultiplierDisplay.textContent = currentMultiplier.toFixed(2) + 'x';
-                
-                currentWin = Math.floor(betAmount * currentMultiplier);
-                currentWinDisplay.textContent = currentWin;
-            }
-            
-            // Завершение игры
-            function endGame(isWin) {
-                gameState = 'ended';
-                
-                // Показываем все мины
-                minesPositions.forEach(pos => {
-                    if (!board[pos].revealed) {
-                        const cell = gameBoard.children[pos];
-                        cell.textContent = '💣';
-                        cell.classList.add('mine');
-                    }
-                });
-                
-                if (isWin) {
-                    gameMessage.textContent = `Поздравляем! Вы выиграли ${currentWin}!`;
-                    gameMessage.className = 'game-message win-message';
-                } else {
-                    gameMessage.textContent = 'Вы проиграли! Попробуйте еще раз.';
-                    gameMessage.className = 'game-message lose-message';
-                    currentWin = 0;
-                    currentWinDisplay.textContent = currentWin;
-                }
-                
-                startBtn.disabled = false;
-                cashoutBtn.disabled = true;
-                betAmountInput.disabled = false;
-            }
-            
-            // Забрать выигрыш
-            function cashOut() {
-                if (gameState !== 'playing') return;
-                
-                gameMessage.textContent = `Вы забрали ${currentWin}!`;
-                gameMessage.className = 'game-message win-message';
-                endGame(true);
-            }
-            
-            // Выбор количества мин
-            function selectMinesOption(option) {
-                mineOptions.forEach(opt => opt.classList.remove('selected'));
-                option.classList.add('selected');
-                totalMines = parseInt(option.dataset.mines);
-            }
-            
-            // Слушатели событий
-            startBtn.addEventListener('click', startGame);
-            cashoutBtn.addEventListener('click', cashOut);
-            
-            mineOptions.forEach(option => {
-                option.addEventListener('click', () => selectMinesOption(option));
-            });
-            
-            // Инициализация
-            initializeBoard();
-            cashoutBtn.disabled = true;
-        });
-    </script>
 </body>
 </html>
