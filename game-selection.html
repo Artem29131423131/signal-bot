@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор игры</title>
+    <link rel="stylesheet" href="mines.css">
+</head>
+<body>
+    <!-- Логотип -->
+    <div class="logo-container">
+        <img src="img/1winlogo.png" alt="1win Logo" class="logo">
+    </div>
+
+    <!-- Кнопка выбора языка -->
+    <button class="language-button">
+        <img src="img/chenslan.png" alt="Language" class="language-icon">
+    </button>
+
+    <!-- Разделительная черта -->
+    <hr class="divider">
+
+    <!-- Заголовок "Выбор игры" -->
+    <div class="game-selection__title">Выбор игры</div>
+
+    <!-- Блок выбора игры -->
+    <div class="game-selection">
+        <div class="game-selection__content">
+            <button id="minesGameButton" class="game-selection__button" onclick="window.location.href='game-field.html'">
+                <div class="game-selection__frame">
+                    <img src="img/mines.png" alt="MinesHack" class="game-selection__image">
+                    <div class="game-selection__label">MinesHack</div>
+                </div>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровое поле</title>
+    <link rel="stylesheet" href="mines.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Добавляем логотип -->
+    <div class="logo-container">
+        <img src="img/1winlogo.png" alt="1win Logo" class="logo">
+    </div>
+
+    <!-- Добавляем кнопку выбора языка -->
+    <button class="language-button">
+        <img src="img/chenslan.png" alt="Language" class="language-icon">
+    </button>
+
+    <!-- Модальное окно для выбора языка -->
+    <div id="languageModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Выберите язык</h2>
+            <button class="language-option" data-lang="ru">Русский</button>
+            <button class="language-option" data-lang="en">English</button>
+        </div>
+    </div>
+
+    <!-- Добавляем разделительную черту -->
+    <hr class="divider">
+
+    <!-- Остальной функционал -->
+    <div id="resetPopup" class="popup hidden">
+        <div class="popup-content">
+            <p id="popup-content"></p>
+            <div class="popup-buttons">
+                <button id="confirmReset"></button>
+                <button id="cancelReset"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center align-middle">
+        <div class="cells-board-wrapper">
+            <div class="cells-board">
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_5450.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_11641.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_18337.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_24493.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_31201.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_37357.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_44065.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_50221.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_56929.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_63085.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_69793.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_75949.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_82645.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_89353.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_95509.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_102217.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_108373.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_115081.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_121237.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_127381.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_134077.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_140221.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_146917.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_153061.svg">
+                </button>
+                <button id="cellButton" type="button" class="cell">
+                    <img width="56" height="56" src="output_svgs/image_159757.svg">
+                </button>
+                <div class="cells-board-mask">
+                    <div class="animated-highlight"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div class="select-traps status-bar__select-traps">
+            <button id="prev_preset_btn" class="select-traps__prev-arrow-btn">
+                <svg class="select-traps__arrow-icon select-traps__arrow-icon_prev" viewBox="0 0 13 20">
+                    <path d="M2.92616 20.0002L10.7906 12.082L12.8584 10.0001L10.7906 7.91821L2.92616 0L0.858398 2.0819L8.72287 10.0001L0.858398 17.9183L2.92616 20.0002Z"></path>
+                </svg>
+            </button>
+            <div class="select-traps__content">
+                <span id="trapsAmount" class="select-traps__traps_amount">1</span>
+                <span class="select-traps__title">МИНЫ</span>
+            </div>
+            <button id="next_preset_btn" class="select-traps__next-arrow-btn">
+                <svg class="select-traps__arrow-icon" viewBox="0 0 13 20">
+                    <path d="M2.92616 20.0002L10.7906 12.082L12.8584 10.0001L10.7906 7.91821L2.92616 0L0.858398 2.0819L8.72287 10.0001L0.858398 17.9183L2.92616 20.0002Z"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="flex flex-wrap flex-row mobile:flex-col mobile:gap-y-3"></div>
+        <div class="basis-1/3 pl-2 mobile:pl-0 mobile:basis-auto mobile:h-[3.25rem]">
+            <button id="playButton" type="button" class="app-button big games-blue-bg text-white cursor-pointer block h-full w-full">
+                <span data-i18n="play">СИГНАЛ</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="timer-container hidden">
+        <div class="timer-row">
+            <div id="timerLabel" class="timer-label">Анализ, ожидайте:</div>
+            <div id="countdownTimer" class="countdown-timer"></div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-bar__fill" id="progressBarFill"></div>
+        </div>
+    </div>
+</body>
+</html>
